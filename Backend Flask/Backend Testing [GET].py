@@ -3,7 +3,7 @@ from sendgrid.helpers.mail import *
 from collections import namedtuple
 from datetime import *
 
-APIKEY = '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'
+APIKEY = 'MY_API_KEY'
 sg = sendgrid.SendGridAPIClient(APIKEY)
 
 Subscriptions = {}
