@@ -65,7 +65,7 @@ public class BookmarksActivity extends AppCompatActivity {
 
         String output = title + "\n" + link;
         arrayAdapter_bookmark.add(output);
-        
+
         editText_title.setText("");
         editText_URL.setText("");
 
