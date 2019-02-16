@@ -1,8 +1,14 @@
 import json
 import urllib.request
 
+#take user input for topic and how many results they want
+topic = input("Please enter gif search: \n").rstrip().lower().replace(" ","+")
+n = input("How many results would you like? \n")
+
+urlgen = "http://api.giphy.com/v1/gifs/search?q="+str(topic)+"+meme&api_key=Oroe1G0gBq2z6n2lD0fA5r2UC3SNA9u6&limit="+str(n)
+
 #json format of GIF Object
-data = json.loads(urllib.request.urlopen("http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=Oroe1G0gBq2z6n2lD0fA5r2UC3SNA9u6&limit=5").read())
+data = json.loads(urllib.request.urlopen(urlgen).read())
 
 #formatted to look nice
 gifs = json.dumps(data, sort_keys=True, indent=4)
@@ -14,4 +20,3 @@ for i in range(len(data['data'])):
 print(urls)
 
 out1 = data['data'][0]['images']['fixed_height']['url']
-
