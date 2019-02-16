@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/GiphyAPI.iml" filepath="$PROJECT_DIR$/.idea/GiphyAPI.iml" />
+      <module fileurl="file://$USER_HOME$/PycharmProjects/HackUCI19/.idea/HackUCI19.iml" filepath="$USER_HOME$/PycharmProjects/HackUCI19/.idea/HackUCI19.iml" />
     </modules>
   </component>
 </project>
