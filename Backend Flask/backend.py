@@ -7,7 +7,6 @@ from random import randint
 
 
 APIKEY = 'MY_API_KEY'
-# ^^^ cant display api key cuz it gets my accound suspended lmao
 sg = sendgrid.SendGridAPIClient(APIKEY)
 
 Subscriptions = {}
@@ -58,12 +57,20 @@ def it_be_meme_time(subscriber: Subscriber, recipient: str) -> None:
 def get_meme(genre: list) -> list:
     # Gets the url of the meme to display within the email
     meme_urls = []
-    for x in range(5):
+    counter = 0
+    while True:
         random_int = randint(0, 1)
         if random_int == 0:
             new_url = Giphy.give_url(genre[randint(0, len(genre) - 1)])
         else:
             new_url = Giphy.give_bing(genre[randint(0, len(genre) - 1)])
+
+        if new_url != meme_urls:
+            meme_urls.append(new_url)
+            counter += 1
+
+        if counter == 5:
+            break
 
     return meme_urls
 
@@ -97,7 +104,7 @@ def check_subscription():
 '''
 '''
 if __name__ == "__main__":
-    add_new_subscription("pinguskhan@gmail.com", ["jojo", "surprised pikachu", "incel", "heh"], timedelta(hours=-1), "pinguskhan@gmail.com", True, True)
+    add_new_subscription("pinguskhan@gmail.com", ["jojo", "surprised pikachu", "incel", "heh"], timedelta(hours=-1), "pinguskhan@gmail.com")
     print(Subscriptions)
     is_it_meme_time(Subscriptions)
     remove_old_subscription("pinguskhan@gmail.com")
