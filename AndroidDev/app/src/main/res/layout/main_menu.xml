@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_menu">
+    tools:context=".main_menu"
+    android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
+    android:background="#4A4A4A">
 
     <Button
         android:id="@+id/main_screen_sub_button"

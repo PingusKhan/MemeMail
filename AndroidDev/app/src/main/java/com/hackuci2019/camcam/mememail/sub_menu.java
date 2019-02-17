@@ -1,6 +1,8 @@
 package com.hackuci2019.camcam.mememail;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -9,12 +11,24 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+import okhttp3.MediaType;
 
 public class sub_menu extends AppCompatActivity {
     private Map<String, Map> stored_subs;
@@ -49,6 +63,7 @@ public class sub_menu extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, arrayList_genres);
 
         listView_genres.setAdapter(arrayAdapter_genres);
+
     }
 
     public void addGenre(View view) {
@@ -75,7 +90,107 @@ public class sub_menu extends AppCompatActivity {
 
         DataHolder.getInstance().setData(new_sub);
 
+        JSONObject sub_to_send = new JSONObject(new_sub);
+        String url = "http://169.234.88.216:5000/hello_world";
+        String charset = "UTF-8";
+
+//        String server_post_response = server_post(url, sub_to_send).toString();
+
+        new ServerPost().execute(sub_to_send);
+
         startActivity(goToMainMenu);
     }
 
-}
+//    public static JSONObject server_post(String url, JSONObject json) {
+//        JSONObject jsonObjectResp = null;
+//
+//        try {
+//
+//            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+//            OkHttpClient client = new OkHttpClient();
+//
+//            okhttp3.RequestBody body = RequestBody.create(JSON, json.toString());
+//            okhttp3.Request request = new okhttp3.Request.Builder()
+//                    .url(url)
+//                    .post(body)
+//                    .build();
+//
+//            okhttp3.Response response = client.newCall(request).execute();
+//
+//            String networkResp = response.body().string();
+//            if (!networkResp.isEmpty()) {
+//                jsonObjectResp = parseJSONStringToJSONObject(networkResp);
+//            }
+//        } catch (Exception ex) {
+//            String err = String.format("{\"result\":\"false\",\"error\":\"%s\"}", ex.getMessage());
+//            jsonObjectResp = parseJSONStringToJSONObject(err);
+//        }
+//
+//        return jsonObjectResp;
+//    }
+//
+//    private static JSONObject parseJSONStringToJSONObject(final String strr) {
+//
+//        JSONObject response = null;
+//        try {
+//            response = new JSONObject(strr);
+//        } catch (Exception ex) {
+//            //  Log.e("Could not parse malformed JSON: \"" + json + "\"");
+//            try {
+//                response = new JSONObject();
+//                response.put("result", "failed");
+//                response.put("data", strr);
+//                response.put("error", ex.getMessage());
+//            } catch (Exception exx) {
+//            }
+//        }
+//        return response;
+//    }
+
+    private static class ServerPost extends AsyncTask<JSONObject, Void, JSONObject> {
+        protected JSONObject doInBackground(JSONObject...json) {
+            JSONObject jsonObjectResp = null;
+            try {
+
+                MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+                OkHttpClient client = new OkHttpClient();
+
+                okhttp3.RequestBody body = RequestBody.create(JSON, json.toString());
+                okhttp3.Request request = new okhttp3.Request.Builder()
+                        .url("http://169.234.88.216:5000/hello_world")
+                        .post(body)
+                        .build();
+
+                okhttp3.Response response = client.newCall(request).execute();
+
+                String networkResp = response.body().string();
+                if (!networkResp.isEmpty()) {
+                    jsonObjectResp = parseJSONStringToJSONObject(networkResp);
+                }
+            } catch (Exception ex) {
+                String err = String.format("{\"result\":\"false\",\"error\":\"%s\"}", ex.getMessage());
+                jsonObjectResp = parseJSONStringToJSONObject(err);
+            }
+
+            return jsonObjectResp;
+        }
+
+            private JSONObject parseJSONStringToJSONObject(final String strr) {
+
+                JSONObject response = null;
+                try {
+                    response = new JSONObject(strr);
+                } catch (Exception ex) {
+                    //  Log.e("Could not parse malformed JSON: \"" + json + "\"");
+                    try {
+                        response = new JSONObject();
+                        response.put("result", "failed");
+                        response.put("data", strr);
+                        response.put("error", ex.getMessage());
+                    } catch (Exception exx) {
+                    }
+                }
+                return response;
+            }
+        }
+    }
