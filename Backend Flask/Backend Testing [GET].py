@@ -4,7 +4,7 @@ from collections import namedtuple
 from datetime import *
 import Giphy
 
-APIKEY = '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'
+APIKEY = 'MY_API_KEY'
 # ^^^ cant display api key cuz it gets my accound suspended lmao
 sg = sendgrid.SendGridAPIClient(APIKEY)
 
