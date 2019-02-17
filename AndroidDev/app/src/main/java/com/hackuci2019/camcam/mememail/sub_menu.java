@@ -62,7 +62,6 @@ public class sub_menu extends AppCompatActivity {
     public void subscribeMenu(View view) {
         String email_to = email_input_to_editText.getText().toString();
         String email_from = email_input_from_editText.getText().toString();
-        //arrayList_genres
         String hours = interval_hours_editText.getText().toString();
         String minutes = interval_mins_editText.getText().toString();
         Intent goToMainMenu = new Intent(this, main_menu.class);
