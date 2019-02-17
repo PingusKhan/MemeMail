@@ -6,7 +6,7 @@ import Giphy
 from random import randint
 
 
-APIKEY = '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'
+APIKEY = 'MY_API_KEY'
 # ^^^ cant display api key cuz it gets my accound suspended lmao
 sg = sendgrid.SendGridAPIClient(APIKEY)
 
