@@ -101,52 +101,6 @@ public class sub_menu extends AppCompatActivity {
         startActivity(goToMainMenu);
     }
 
-//    public static JSONObject server_post(String url, JSONObject json) {
-//        JSONObject jsonObjectResp = null;
-//
-//        try {
-//
-//            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-//            OkHttpClient client = new OkHttpClient();
-//
-//            okhttp3.RequestBody body = RequestBody.create(JSON, json.toString());
-//            okhttp3.Request request = new okhttp3.Request.Builder()
-//                    .url(url)
-//                    .post(body)
-//                    .build();
-//
-//            okhttp3.Response response = client.newCall(request).execute();
-//
-//            String networkResp = response.body().string();
-//            if (!networkResp.isEmpty()) {
-//                jsonObjectResp = parseJSONStringToJSONObject(networkResp);
-//            }
-//        } catch (Exception ex) {
-//            String err = String.format("{\"result\":\"false\",\"error\":\"%s\"}", ex.getMessage());
-//            jsonObjectResp = parseJSONStringToJSONObject(err);
-//        }
-//
-//        return jsonObjectResp;
-//    }
-//
-//    private static JSONObject parseJSONStringToJSONObject(final String strr) {
-//
-//        JSONObject response = null;
-//        try {
-//            response = new JSONObject(strr);
-//        } catch (Exception ex) {
-//            //  Log.e("Could not parse malformed JSON: \"" + json + "\"");
-//            try {
-//                response = new JSONObject();
-//                response.put("result", "failed");
-//                response.put("data", strr);
-//                response.put("error", ex.getMessage());
-//            } catch (Exception exx) {
-//            }
-//        }
-//        return response;
-//    }
-
     private static class ServerPost extends AsyncTask<JSONObject, Void, JSONObject> {
         protected JSONObject doInBackground(JSONObject...json) {
             JSONObject jsonObjectResp = null;
