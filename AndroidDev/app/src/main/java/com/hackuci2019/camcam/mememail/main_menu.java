@@ -1,11 +1,14 @@
 package com.hackuci2019.camcam.mememail;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -31,8 +34,17 @@ public class main_menu extends AppCompatActivity {
         Map<String, Map> data = DataHolder.getInstance().getData();
         if (!(data == null)) {
             arrayList_subscribers = new ArrayList<>();
-            arrayAdapter_subscribers = new ArrayAdapter<>(this,
-                    android.R.layout.simple_list_item_1);
+            arrayAdapter_subscribers = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1){
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
+                    textView.setTextColor(Color.WHITE);
+
+                    return view;
+                }
+            };
             listView_subs.setAdapter(arrayAdapter_subscribers);
 
             Iterator<String> email_keys = data.keySet().iterator();
