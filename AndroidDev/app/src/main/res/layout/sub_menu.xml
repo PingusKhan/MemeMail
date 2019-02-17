@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background=""
     tools:context=".sub_menu">
 
     <TextView
@@ -51,6 +50,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="Where will it go?"
+        android:autofillHints="email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/guideline11"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
@@ -156,6 +156,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="Enter a Genre Here!"
+        android:autofillHints="email"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
@@ -176,44 +177,8 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".50" />
 
-    <ImageButton
-        android:id="@+id/surp_pika_add_button"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="TODO"
-        android:cropToPadding="true"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/guideline15"
-        app:layout_constraintEnd_toStartOf="@+id/guideline13"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline14"
-        app:srcCompat="@drawable/surp_pika" />
-
-    <TextView
-        android:id="@+id/add_button_text"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="Surprised Pikachu Button"
-        android:fontFamily="sans-serif-black"
-        android:paddingTop="10dp"
-        android:text="ADD"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline15"
-        app:layout_constraintEnd_toStartOf="@+id/guideline13"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline14" />
-
     <ListView
+        android:id="@+id/genres_listview"
         android:layout_width="150dp"
         android:layout_height="250dp"
         android:layout_marginStart="8dp"
@@ -247,7 +212,7 @@
         app:layout_constraintGuide_percent=".37" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/genres_text"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
@@ -299,7 +264,7 @@
         app:layout_constraintGuide_percent="0.8002736" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/interval_text"
         android:layout_width="150dp"
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
@@ -321,4 +286,75 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".65" />
+
+    <Button
+        android:id="@+id/genre_add_button"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Add"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline15"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/guideline14" />
+
+    <EditText
+        android:id="@+id/interval_hours_editText"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:hint=""
+        app:layout_constraintBottom_toTopOf="@+id/guideline21"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline7" />
+
+    <EditText
+        android:id="@+id/interval_mins_editText"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/guideline21"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="@+id/guideline6" />
+
+    <TextView
+        android:id="@+id/interval_hours_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Hours"
+        app:layout_constraintBottom_toTopOf="@+id/interval_hours_editText"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/guideline16" />
+
+    <TextView
+        android:id="@+id/interval_minutes_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Minutes"
+        app:layout_constraintBottom_toTopOf="@+id/interval_mins_editText"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toTopOf="@+id/guideline16" />
+
 </android.support.constraint.ConstraintLayout>
