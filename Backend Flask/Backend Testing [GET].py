@@ -4,6 +4,7 @@ from collections import namedtuple
 from datetime import *
 
 APIKEY = 'MY_API_KEY'
+sg = sendgrid.SendGridAPIClient(APIKEY)
 
 Subscriptions = {}
 Subscriber = namedtuple('Subscription', ['Genre', 'Interval',
