@@ -3,21 +3,23 @@ from sendgrid.helpers.mail import *
 from collections import namedtuple
 from datetime import *
 import Giphy
+from random import randint
 
-APIKEY = 'MY_API_KEY'
+APIKEY = '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'
 # ^^^ cant display api key cuz it gets my accound suspended lmao
 sg = sendgrid.SendGridAPIClient(APIKEY)
 
 Subscriptions = {}
-Subscriber = namedtuple('Subscription', ['Genre', 'Interval', 'Sender', 'Date'])
+Subscriber = namedtuple('Subscription', ['Genre', 'Interval', 'Sender', 'Date', 'Gifs', 'Stills'])
 
 
-def add_new_subscription(recipient: str, genre: str, interval: timedelta, 
-                        sender: str) -> None:
+def add_new_subscription(recipient: str, genre: list, interval: timedelta, 
+                        sender: str, gifs = True, stills = True) -> None:
     # Takes in the input of recipient of the subscription, genre of memes, interval in which they receive
     # the memes, and who is the sender; Organizes multiple subscriptions as a dictionary of Subscriber
     # namedtuples, with the recipient as the key
-    Subscriptions[recipient] = Subscriber(Genre = genre, Interval = interval, Sender = sender, Date = datetime.utcnow())
+    Subscriptions[recipient] = Subscriber(Genre = genre, Interval = interval, Sender = sender, Date = datetime.utcnow(),
+                                    Gifs = gifs, Stills = stills)
     # _first_email(recipient, sender, interval)
     
 
@@ -46,7 +48,7 @@ def it_be_meme_time(subscriber: Subscriber, recipient: str) -> None:
     to_email = Email(recipient)
     subject = "Meme Mail brought straight to YOU by Team TBD"
     # vvvv this line is the one responsible for the body of the meme mail!!!
-    memes = get_meme(subscriber.Genre)
+    memes = get_meme(subscriber.Genre, subscriber.Gifs, subscriber.Stills)
     content = Content("text/html", "<h1>You like memes?</h1><img src={} alt=dank_meme0.jpg style=width:auto;height:auto></img><img src={} alt=dank_meme1.jpg style=width:auto;height:auto></img><img src={} alt=dank_meme2.jpg style=width:auto;height:auto></img><img src={} alt=dank_meme3.jpg style=width:auto;height:auto></img><img src={} alt=dank_meme4.jpg style=width:auto;height:auto></img>".format(memes[0], memes[1], memes[2], memes[3], memes[4]))
 
     mail = Mail(from_email, subject, to_email, content)
@@ -57,10 +59,23 @@ def it_be_meme_time(subscriber: Subscriber, recipient: str) -> None:
     print(response.headers)
 
 
-def get_meme(genre: str) -> list:
+def get_meme(genre: list, gifs: bool, stills: bool) -> list:
     # Gets the url of the meme to display within the email
-    return Giphy.give_url(genre)
-
+    meme_urls = []
+    for x in range(5):
+        if gifs and stills:
+            random_int = randint(0, 1)
+            if random_int == 0:
+                new_url = Giphy.give_url(genre[randint(0, len(genre) - 1)])
+            else:
+                new_url = Giphy.give_bing(genre[randint(0, len(genre) - 1)])
+        elif gifs:
+            new_url = Giphy.give_url(genre[randint(0, len(genre) - 1)])
+        else:
+            new_url = Giphy.give_bing(genre[randint(0, len(genre) - 1)])
+        if new_url != meme_urls:
+                meme_urls.append(new_url)
+    return meme_urls
 
 # Private Functions Below
 
@@ -92,7 +107,7 @@ def check_subscription():
 '''
 
 if __name__ == "__main__":
-    add_new_subscription("pinguskhan@gmail.com", "jojo", timedelta(hours=-1), "pinguskhan@gmail.com")
+    add_new_subscription("pinguskhan@gmail.com", ["jojo", "surprised pikachu", "incel", "heh"], timedelta(hours=-1), "pinguskhan@gmail.com", True, True)
     print(Subscriptions)
     is_it_meme_time(Subscriptions)
     remove_old_subscription("pinguskhan@gmail.com")
