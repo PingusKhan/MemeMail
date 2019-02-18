@@ -97,8 +97,6 @@ public class sub_menu extends AppCompatActivity {
         String url = "http://169.234.88.216:5000/hello_world";
         String charset = "UTF-8";
 
-//        String server_post_response = server_post(url, sub_to_send).toString();
-
         new ServerPost().execute(sub_to_send);
 
         startActivity(goToMainMenu);
@@ -113,6 +111,7 @@ public class sub_menu extends AppCompatActivity {
                 OkHttpClient client = new OkHttpClient();
 
                 okhttp3.RequestBody body = RequestBody.create(JSON, json.toString());
+
                 okhttp3.Request request = new okhttp3.Request.Builder()
                         .url("http://169.234.88.216:5000/hello_world")
                         .post(body)
@@ -121,6 +120,8 @@ public class sub_menu extends AppCompatActivity {
                 okhttp3.Response response = client.newCall(request).execute();
 
                 String networkResp = response.body().string();
+
+
                 if (!networkResp.isEmpty()) {
                     jsonObjectResp = parseJSONStringToJSONObject(networkResp);
                 }
