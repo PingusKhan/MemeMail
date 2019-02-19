@@ -1,13 +1,16 @@
 package com.hackuci2019.camcam.mememail;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,8 +53,17 @@ public class sub_menu extends AppCompatActivity {
 
         arrayList_genres = new ArrayList<>();
 
-        arrayAdapter_genres = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, arrayList_genres);
+        arrayAdapter_genres = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, arrayList_genres) {
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
+                textView.setTextColor(Color.WHITE);
+
+                return view;
+            }
+        };
 
         listView_genres.setAdapter(arrayAdapter_genres);
 
@@ -85,8 +97,6 @@ public class sub_menu extends AppCompatActivity {
         String url = "http://169.234.88.216:5000/hello_world";
         String charset = "UTF-8";
 
-//        String server_post_response = server_post(url, sub_to_send).toString();
-
         new ServerPost().execute(sub_to_send);
 
         startActivity(goToMainMenu);
@@ -101,6 +111,7 @@ public class sub_menu extends AppCompatActivity {
                 OkHttpClient client = new OkHttpClient();
 
                 okhttp3.RequestBody body = RequestBody.create(JSON, json.toString());
+
                 okhttp3.Request request = new okhttp3.Request.Builder()
                         .url("http://169.234.88.216:5000/hello_world")
                         .post(body)
@@ -109,6 +120,8 @@ public class sub_menu extends AppCompatActivity {
                 okhttp3.Response response = client.newCall(request).execute();
 
                 String networkResp = response.body().string();
+
+
                 if (!networkResp.isEmpty()) {
                     jsonObjectResp = parseJSONStringToJSONObject(networkResp);
                 }
